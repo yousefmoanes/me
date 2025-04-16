@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>سؤال لمريوم ❤️</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8bbd0; 
+      text-align: center;
+      padding-top: 100px;
+      direction: rtl;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 36px;
+      color: #000000; 
+    }
+    .buttons {
+      margin-top: 30px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    #yes {
+      background-color: #f06292; 
+      color: white;
+    }
+    #no {
+      background-color: #b0bec5; 
+      color: #333;
+      position: absolute;
+    }
+    #message {
+      margin-top: 40px;
+      font-size: 30px;
+      color: #28a745; 
+      display: none;
+    }
+    #sadMessage {
+      margin-top: 40px;
+      font-size: 30px;
+      color: black; 
+      display: none;
+    }
+    #angryMessage {
+      margin-top: 40px;
+      font-size: 30px;
+      color: red; 
+      display: none;
+    }
+    #player {
+      display: none;
+    }
+   
+    .butterfly {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Butterfly_icon.svg/1024px-Butterfly_icon.svg.png') no-repeat center center;
+      background-size: contain;
+      animation: fly 5s infinite;
+    }
+    @keyframes fly {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(100px, -100px); }
+      50% { transform: translate(200px, 0); }
+      75% { transform: translate(100px, 100px); }
+      100% { transform: translate(0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>هو انتي بتحبيني يا مريوم؟ 💖</h1>
+
+  <div class="buttons">
+    <button id="yes">❤️ايواا بموت فيك كمان يا لولو</button>
+    <button id="no">لا</button>
+  </div>
+
+  <div id="message">
+    <div>💕❤️وانا كمان بحبك يا روحي❤️💕</div>
+    <div class="butterfly"></div> 
+    <div>💋😘</div> 
+    <div>🦋</div> 
+  </div>
+  
+  <div id="sadMessage">U don't love me baby?😢</div>
+  <div id="angryMessage">😡😡😡😡</div> 
+
+  <div id="player"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'H9MUAiBeb3w',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          start: 30,
+          mute: 1,
+        },
+        events: {
+          onReady: (event) => {
+            event.target.playVideo();
+          }
+        }
+      });
+    }
+
+    const noButton = document.getElementById('no');
+    const yesButton = document.getElementById('yes');
+    const message = document.getElementById('message');
+    const sadMessage = document.getElementById('sadMessage');
+    const angryMessage = document.getElementById('angryMessage');
+
+    noButton.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    });
+
+    yesButton.addEventListener('click', () => {
+      message.style.display = 'block';
+
+      const duration = 5 * 1000;
+      const end = Date.now() + duration;
+
+      (function firework() {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(firework);
+        }
+      })();
+
+      clearTimeout(sadMessageTimeout);
+      sadMessage.style.display = 'none';
+      clearTimeout(angryMessageTimeout);
+      angryMessage.style.display = 'none';
+    });
+
+    let angryMessageTimeout = setTimeout(() => {
+      angryMessage.style.display = 'block';
+    }, 3000); 
+
+    let sadMessageTimeout = setTimeout(() => {
+      sadMessage.style.display = 'block';
+    }, 6000); 
+
+    
+    yesButton.addEventListener('click', () => {
+      clearTimeout(angryMessageTimeout);
+      clearTimeout(sadMessageTimeout);
+    });
+  </script>
+
+</body>
+</html>
